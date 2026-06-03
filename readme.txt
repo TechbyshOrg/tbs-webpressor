@@ -7,8 +7,8 @@ Tags: webp, image, compression, optimization, performance
 License: GPLv2 or later
 Requires at least: 5.0
 Requires PHP: 7.0
-Tested up to: 6.8
-Stable tag: 1.0.0
+Tested up to: 7.0
+Stable tag: 1.0.1
 
 Convert images to WebP format and serve them to compatible browsers for faster loading websites with reduced file sizes.
 
@@ -91,8 +91,8 @@ Currently, the plugin converts all JPG, JPEG, and PNG images. A future update ma
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-Initial release of WebPressor with core WebP conversion and optimization features.
+= 1.0.1 =
+* General Bug Fixes
 
 == Requirements ==
 
@@ -101,6 +101,8 @@ Initial release of WebPressor with core WebP conversion and optimization feature
 - GD library with WebP support
 
 == Changelog ==
+= 1.0.1 =
+* General Bug Fixes
 
 = 1.0.0 =
 * Initial release
