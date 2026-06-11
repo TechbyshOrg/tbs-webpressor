@@ -105,13 +105,34 @@ class TBS_WebPressor_WIC {
         wp_enqueue_style('tbswebpressor-style', TBSWEBPRESSOR_PLUGIN_URL . 'assets/css/style.css', array(), TBSWEBPRESSOR_VERSION);
         wp_enqueue_script('tbswebpressor-backend-script', TBSWEBPRESSOR_PLUGIN_URL . 'assets/js/backend.js', array('jquery'), TBSWEBPRESSOR_VERSION, true);
         
-        // Localize script with data for JavaScript
+        $upload_dir = wp_upload_dir();
+        
         wp_localize_script('tbswebpressor-backend-script', 'tbswData', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('tbswebpressor-nonce'),
             'plugin_url' => TBSWEBPRESSOR_PLUGIN_URL,
             'is_admin' => is_admin(),
             'max_upload_size' => wp_max_upload_size(),
+            'version' => TBSWEBPRESSOR_VERSION,
+            'settings' => array(
+                'target_formats'    => get_option('tbswebpressor_target_formats', array('webp')),
+                'webp_quality'      => intval(get_option('tbswebpressor_webp_quality', 80)),
+                'avif_quality'      => intval(get_option('tbswebpressor_avif_quality', 65)),
+                'delivery_method'   => get_option('tbswebpressor_delivery_method', 'html'),
+                'compression_mode'  => get_option('tbswebpressor_compression_mode', 'lossy'),
+                'convert_on_upload' => intval(get_option('tbswebpressor_convert_on_upload', 1)),
+            ),
+            'compatibility' => array(
+                'gd_supported'   => extension_loaded('gd') ? 1 : 0,
+                'webp_supported' => function_exists('imagewebp') ? 1 : 0,
+                'avif_supported' => function_exists('imageavif') ? 1 : 0,
+                'upload_writable'=> is_writable($upload_dir['basedir']) ? 1 : 0,
+                'server_type'    => isset($_SERVER['SERVER_SOFTWARE']) ? sanitize_text_field(wp_unslash($_SERVER['SERVER_SOFTWARE'])) : 'Unknown',
+            ),
+            'stats' => array(
+                'total_original'  => intval(get_option('tbswebpressor_total_original_size', 0)),
+                'total_optimized' => intval(get_option('tbswebpressor_total_optimized_size', 0)),
+            ),
             'translations' => array(
                 'converting' => __('Converting images...', 'webpressor-webp-image-converter-optimizer'),
                 'success' => __('Conversion completed successfully!', 'webpressor-webp-image-converter-optimizer'),

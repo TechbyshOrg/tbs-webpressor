@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
   reactRootElements.forEach((container, index) => {
     // Get any data attributes passed from WordPress
     const wpData = window.tbswData || {};
-    // const wpData = container.dataset.wpData ? JSON.parse(container.dataset.wpData) : {};
+    const initialTab = container.getAttribute('data-tab') || 'dashboard';
     
     const root = createRoot(container);
     root.render(
       <React.StrictMode>
-        <App wpData={wpData} />
+        <App wpData={wpData} initialTab={initialTab} />
       </React.StrictMode>
     );
   });

@@ -12,5 +12,5 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div class="wrap">
-    <div id="tbswebpressor-root" class="tbswebpressor-root"></div>
+    <div id="tbswebpressor-root" class="tbswebpressor-root" data-tab="dashboard"></div>
 </div>
