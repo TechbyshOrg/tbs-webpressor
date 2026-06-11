@@ -1,0 +1,102 @@
+# .distignore
+# Files and directories listed here will NOT be deployed to WordPress.org SVN.
+# Syntax is the same as .gitignore.
+
+# =============================================
+# Development & Build Source Files
+# =============================================
+react-admin/
+/react-admin
+
+# =============================================
+# Node / NPM / Yarn
+# =============================================
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+
+# =============================================
+# Git & GitHub
+# =============================================
+.git/
+.gitignore
+.github/
+
+# =============================================
+# Editor & IDE Config
+# =============================================
+.vscode/
+.idea/
+*.code-workspace
+.editorconfig
+
+# =============================================
+# OS Generated Files
+# =============================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =============================================
+# Testing & CI
+# =============================================
+tests/
+phpunit.xml
+phpunit.xml.dist
+.phpunit.result.cache
+jest.config.js
+.babelrc
+babel.config.js
+.eslintrc
+.eslintrc.js
+.eslintrc.json
+.eslintignore
+.stylelintrc
+.stylelintignore
+.browserslistrc
+
+# =============================================
+# Environment & Local Config
+# =============================================
+.env
+.env.local
+.env.production
+.env.development
+*.local
+
+# =============================================
+# Build Tools / Config Files
+# =============================================
+webpack.config.js
+Gruntfile.js
+Gulpfile.js
+Makefile
+.webpack/
+
+# =============================================
+# Composer (if used)
+# =============================================
+composer.json
+composer.lock
+vendor/
+
+# =============================================
+# Documentation & Extras (not needed on WP.org)
+# =============================================
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+CHANGELOG.md
+.wordpress-org/
+
+# =============================================
+# Misc
+# =============================================
+*.map
+*.log
+phpcs.xml
+phpcs.xml.dist
+phpstan.neon
+phpstan.neon.dist
