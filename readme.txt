@@ -6,9 +6,9 @@ Donate link: https://techbysh.com
 Tags: webp, avif, image optimization, image compression, page speed
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 5.0
-Requires PHP: 7.0
-Tested up to: 6.7
+Requires at least: 6.0
+Requires PHP: 7.4
+Tested up to: 7.0
 Stable tag: 2.0.1
 
 Convert JPEG & PNG images to WebP and AVIF. Serve next-gen formats automatically. Reduce image sizes up to 50% for a faster, higher-scoring website.
@@ -140,7 +140,7 @@ No! Simply install and activate the plugin, go to **WebPressor → Dashboard**, 
 
 = What PHP version and server extensions are required? =
 
-- **PHP 7.0+** is required for WebP support via GD
+- **PHP 7.4+** is required for WebP support via GD
 - **PHP 8.1+** with GD compiled with AVIF support is required for AVIF conversion
 - You can check your server's capabilities on the **System Status** tab
 
@@ -231,8 +231,8 @@ Major release! Adds AVIF next-gen format support, redesigned three-tab admin pan
 
 == Requirements ==
 
-- WordPress 5.0 or higher
-- PHP 7.0 or higher (PHP 8.1+ recommended for AVIF support)
+- WordPress 6.0 or higher
+- PHP 7.4 or higher (PHP 8.1+ recommended for AVIF support)
 - GD library with WebP support enabled
 - GD library with AVIF support (optional, for AVIF conversion)
 
