@@ -9,7 +9,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 5.0
 Requires PHP: 7.0
 Tested up to: 6.7
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 
 Convert JPEG & PNG images to WebP and AVIF. Serve next-gen formats automatically. Reduce image sizes up to 50% for a faster, higher-scoring website.
 
@@ -221,11 +221,11 @@ https://github.com/TechbyshOrg/tbs-webpressor.git
 
 == Upgrade Notice ==
 
+= 2.0.1 =
+Version bump and minor improvements.
+
 = 2.0.0 =
 Major release! Adds AVIF next-gen format support, redesigned three-tab admin panel with live console log, server-level .htaccess rewrite delivery method, storage savings dashboard, system compatibility diagnostics, and Nginx snippet generator. Upgrade strongly recommended.
-
-= 1.0.1 =
-General bug fixes.
 
 ---
 
@@ -239,6 +239,9 @@ General bug fixes.
 ---
 
 == Changelog ==
+
+= 2.0.1 =
+* Version bump and minor improvements.
 
 = 2.0.0 =
 * NEW: AVIF next-generation image format conversion support (PHP 8.1+ with GD AVIF)
