@@ -54,15 +54,19 @@ function App({ wpData = {}, initialTab = 'dashboard' }) {
   };
 
   // Fetch counts from server
-  const fetchMediaCount = async () => {
+  const fetchMediaCount = async (refresh = false) => {
     try {
+      const params = new URLSearchParams({
+        action: 'tbswebpressor_get_media_count',
+        nonce: wpData.nonce,
+      });
+      if (refresh) {
+        params.append('refresh', '1');
+      }
       const response = await fetch(wpData.ajax_url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          action: 'tbswebpressor_get_media_count',
-          nonce: wpData.nonce,
-        })
+        body: params
       });
       const result = await response.json();
       if (result.success) setCount(result.data.count);
@@ -71,15 +75,19 @@ function App({ wpData = {}, initialTab = 'dashboard' }) {
     }
   };
 
-  const fetchPendingMediaCount = async () => {
+  const fetchPendingMediaCount = async (refresh = false) => {
     try {
+      const params = new URLSearchParams({
+        action: 'tbswebpressor_get_pending_media_count',
+        nonce: wpData.nonce,
+      });
+      if (refresh) {
+        params.append('refresh', '1');
+      }
       const response = await fetch(wpData.ajax_url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          action: 'tbswebpressor_get_pending_media_count',
-          nonce: wpData.nonce,
-        })
+        body: params
       });
       const result = await response.json();
       if (result.success) setPendingCount(result.data.count);
@@ -156,8 +164,8 @@ function App({ wpData = {}, initialTab = 'dashboard' }) {
         }
 
         // Refresh numbers after each batch
-        await fetchMediaCount();
-        await fetchPendingMediaCount();
+        await fetchMediaCount(true);
+        await fetchPendingMediaCount(true);
         await fetchStats();
 
         if (data.hasMorePages && !stopConversion.current) {

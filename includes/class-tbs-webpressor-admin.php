@@ -38,18 +38,75 @@ class TBS_WebPressor_Admin {
      * @since    1.0.0
      */
     public function tbswebpressor_admin_setup_hooks() {
-        add_action('admin_enqueue_scripts', array($this, 'tbswebpressor_enqueue_admin_styles'));
+        add_action('admin_enqueue_scripts', array($this, 'tbswebpressor_enqueue_admin_assets'));
         add_action('admin_menu', array($this, 'tbswebpressor_register_admin_menu'));
         add_filter('wp_generate_attachment_metadata', array($this, 'tbswebpressor_convert_on_upload'), 99, 2);
     }
 
     /**
-     * Enqueue admin-specific styles
+     * Enqueue admin scripts and styles on WebPressor screens only.
      *
      * @since    1.0.0
+     * @param    string $hook_suffix Current admin page hook suffix.
      */
-    public function tbswebpressor_enqueue_admin_styles() {
-        wp_enqueue_style('tbswebpressor-admin-style', TBSWEBPRESSOR_PLUGIN_URL . 'assets/css/admin.css', array(), TBSWEBPRESSOR_VERSION);
+    public function tbswebpressor_enqueue_admin_assets($hook_suffix) {
+        if (strpos($hook_suffix, 'tbswebpressor') === false) {
+            return;
+        }
+
+        wp_enqueue_style(
+            'tbswebpressor-admin-style',
+            TBSWEBPRESSOR_PLUGIN_URL . 'assets/css/admin.css',
+            array(),
+            TBSWEBPRESSOR_VERSION
+        );
+
+        wp_enqueue_script(
+            'tbswebpressor-backend-script',
+            TBSWEBPRESSOR_PLUGIN_URL . 'assets/js/backend.js',
+            array('jquery'),
+            TBSWEBPRESSOR_VERSION,
+            true
+        );
+
+        $upload_dir = wp_upload_dir();
+
+        wp_localize_script(
+            'tbswebpressor-backend-script',
+            'tbswData',
+            array(
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('tbswebpressor-nonce'),
+                'plugin_url' => TBSWEBPRESSOR_PLUGIN_URL,
+                'is_admin' => is_admin(),
+                'max_upload_size' => wp_max_upload_size(),
+                'version' => TBSWEBPRESSOR_VERSION,
+                'settings' => array(
+                    'target_formats'    => get_option('tbswebpressor_target_formats', array('webp')),
+                    'webp_quality'      => intval(get_option('tbswebpressor_webp_quality', 80)),
+                    'avif_quality'      => intval(get_option('tbswebpressor_avif_quality', 65)),
+                    'delivery_method'   => get_option('tbswebpressor_delivery_method', 'html'),
+                    'compression_mode'  => get_option('tbswebpressor_compression_mode', 'lossy'),
+                    'convert_on_upload' => intval(get_option('tbswebpressor_convert_on_upload', 1)),
+                ),
+                'compatibility' => array(
+                    'gd_supported'   => extension_loaded('gd') ? 1 : 0,
+                    'webp_supported' => function_exists('imagewebp') ? 1 : 0,
+                    'avif_supported' => function_exists('imageavif') ? 1 : 0,
+                    'upload_writable'=> is_writable($upload_dir['basedir']) ? 1 : 0,
+                    'server_type'    => isset($_SERVER['SERVER_SOFTWARE']) ? sanitize_text_field(wp_unslash($_SERVER['SERVER_SOFTWARE'])) : 'Unknown',
+                ),
+                'stats' => array(
+                    'total_original'  => intval(get_option('tbswebpressor_total_original_size', 0)),
+                    'total_optimized' => intval(get_option('tbswebpressor_total_optimized_size', 0)),
+                ),
+                'translations' => array(
+                    'converting' => __('Converting images...', 'webpressor-webp-image-converter-optimizer'),
+                    'success' => __('Conversion completed successfully!', 'webpressor-webp-image-converter-optimizer'),
+                    'error' => __('Error during conversion', 'webpressor-webp-image-converter-optimizer'),
+                ),
+            )
+        );
     }
 
     /**
@@ -115,20 +172,17 @@ class TBS_WebPressor_Admin {
      * @param    int    $attachment_id    Attachment ID
      */
     public function tbswebpressor_convert_on_upload($metadata, $attachment_id) {
-        // Get file information
         $file_type = get_post_mime_type($attachment_id);
 
-        // Only process image attachments
-        if (strpos($file_type, 'image/') === 0 && $file_type !== 'image/webp') {
-            // Get plugin settings
-            $option = get_option('tbswebpressor_convert_on_upload', array());
-            
-            // Check if auto-conversion on upload is enabled
-            if ($option) {
-                // Use the converter instance to create WebP version
-                $converted = $this->converter->tbswebpressor_create_webp($attachment_id);
-            }
+        if (!in_array($file_type, TBS_WebPressor_Converter::tbswebpressor_get_convertible_mime_types(), true)) {
+            return $metadata;
         }
+
+        $convert_on_upload = intval(get_option('tbswebpressor_convert_on_upload', 1));
+        if ($convert_on_upload) {
+            TBS_WebPressor_Converter::tbswebpressor_create_webp($attachment_id, $metadata);
+        }
+
         return $metadata;
     }
     

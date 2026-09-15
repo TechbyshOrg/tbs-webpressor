@@ -44,6 +44,7 @@ function tbswebpressor_run() {
     register_activation_hook(__FILE__, array('TBS_WebPressor_Activator', 'tbswebpressor_activate'));
     register_deactivation_hook(__FILE__, array('TBS_WebPressor_Deactivator', 'tbswebpressor_deactivate'));
 
+
     $plugin = new TBS_WebPressor_WIC();
     $plugin->tbswebpressor_main_run();
 }
