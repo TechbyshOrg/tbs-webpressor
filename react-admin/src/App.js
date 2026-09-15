@@ -308,7 +308,7 @@ function App({ wpData = {}, initialTab = 'dashboard' }) {
       <div className="tbsw-header">
         <div className="tbsw-header-title">
           <h1>WebPressor</h1>
-          <span className="tbsw-version">v{wpData.version || '2.0.0'}</span>
+          <span className="tbsw-version">v{wpData.version || '2.1.0'}</span>
         </div>
         <p className="tbsw-subtitle">Next-Generation Image Compression & Optimization for WordPress</p>
       </div>

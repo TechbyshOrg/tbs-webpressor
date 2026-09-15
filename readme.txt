@@ -8,8 +8,8 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 6.0
 Requires PHP: 7.4
-Tested up to: 7.0
-Stable tag: 2.0.2
+Tested up to: 7.1
+Stable tag: 2.1.0
 
 Convert JPEG & PNG images to WebP and AVIF. Serve next-gen formats automatically. Reduce image sizes up to 50% for a faster, higher-scoring website.
 
@@ -221,21 +221,34 @@ https://github.com/TechbyshOrg/tbs-webpressor.git
 
 == Upgrade Notice ==
 
-= 2.0.2 =
-Version bump and minor improvements.
+= 2.1.0 =
+Security, reliability, and delivery improvements. Tested with WordPress 7.1. Recommended update for all users.
 
 ---
 
 == Requirements ==
 
-- WordPress 6.0 or higher
-- PHP 7.4 or higher (PHP 8.1+ recommended for AVIF support)
+- WordPress 6.0 or higher (tested up to 7.1)
+- PHP 7.4 or higher (PHP 8.1+ required for AVIF conversion; PHP 8.3+ recommended by WordPress)
 - GD library with WebP support enabled
 - GD library with AVIF support (optional, for AVIF conversion)
 
 ---
 
 == Changelog ==
+
+= 2.1.0 =
+* IMPROVED: Admin AJAX endpoints require administrator privileges; removed public nopriv handlers
+* IMPROVED: Admin scripts and data load only on WebPressor admin screens
+* FIX: Storage saved statistics stay accurate when bulk optimization is run more than once
+* IMPROVED: Bulk optimizer processes pending JPEG/PNG items only for faster, clearer progress
+* IMPROVED: Pending media count respects active WebP and AVIF target format settings
+* FIX: Auto-convert on upload uses attachment metadata so registered sizes convert reliably
+* NEW: Responsive image srcset support in HTML delivery mode
+* NEW: `tbswebpressor_resolve_variant_url` filter for CDN and offload plugin integrations
+* FIX: Uploads `.htaccess` RewriteBase path for server rewrite delivery
+* IMPROVED: Plugin settings preserved on deactivation; options removed on uninstall only
+* IMPROVED: GitHub release workflow builds admin JavaScript before packaging
 
 = 2.0.2 =
 * Version bump and minor improvements.
