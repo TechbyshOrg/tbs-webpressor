@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: WebPressor - WebP Image Converter & Optimizer
- * Description: A WordPress plugin to convert images to WebP and AVIF formats and serve them to compatible browsers.
- * Version: 2.1.0
+ * Plugin Name: WebPressor – WebP & AVIF Image Converter
+ * Description: Convert JPEG and PNG images to WebP and AVIF on your own server and serve them automatically. Free AVIF, no image limits, originals kept.
+ * Version: 2.2.0
  * Author: Techbysh
  * Author URI: https://techbysh.com
  * Text Domain: webpressor-webp-image-converter-optimizer
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 /**
  * Define plugin constants
  */
-define('TBSWEBPRESSOR_VERSION', '2.1.0');
+define('TBSWEBPRESSOR_VERSION', '2.2.0');
 define('TBSWEBPRESSOR_PLUGIN_DIR', trailingslashit(dirname(__FILE__)));
 define('TBSWEBPRESSOR_PLUGIN_URL', trailingslashit(plugins_url('', __FILE__)));
 define('TBSWEBPRESSOR_PLUGIN_BASENAME', plugin_basename(__FILE__));

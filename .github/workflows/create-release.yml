@@ -39,7 +39,8 @@ jobs:
             --exclude='.gitignore' \
             --exclude='.gitlab-ci.yml' \
             --exclude='.github' \
-            --exclude='webpressor-webp-image-converter-optimizer_*.zip'
+            --exclude='webpressor-webp-image-converter-optimizer_*.zip' \
+            --exclude='SEO-CONTENT-PLAN.txt'
 
       - name: Create zip file
         run: |

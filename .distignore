@@ -100,3 +100,8 @@ phpcs.xml
 phpcs.xml.dist
 phpstan.neon
 phpstan.neon.dist
+
+# =============================================
+# Internal planning documents
+# =============================================
+SEO-CONTENT-PLAN.txt

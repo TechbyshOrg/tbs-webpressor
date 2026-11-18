@@ -2,26 +2,26 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: WebPressor - WebP Image Converter & Optimizer 2.1.0\n"
+"Project-Id-Version: WebPressor – WebP & AVIF Image Converter 2.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/webpressor-webp-image-converter-optimizer\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-18T05:35:18+00:00\n"
+"POT-Creation-Date: 2026-11-18T06:17:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: webpressor-webp-image-converter-optimizer\n"
 
 #. Plugin Name of the plugin
 #: webpressor-webp-image-converter-optimizer.php
-msgid "WebPressor - WebP Image Converter & Optimizer"
+msgid "WebPressor – WebP & AVIF Image Converter"
 msgstr ""
 
 #. Description of the plugin
 #: webpressor-webp-image-converter-optimizer.php
-msgid "A WordPress plugin to convert images to WebP and AVIF formats and serve them to compatible browsers."
+msgid "Convert JPEG and PNG images to WebP and AVIF on your own server and serve them automatically. Free AVIF, no image limits, originals kept."
 msgstr ""
 
 #. Author of the plugin
@@ -352,6 +352,104 @@ msgstr ""
 
 #: includes/class-tbs-webpressor-media.php:314
 msgid "Unknown action."
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:84
+msgid "I no longer need the plugin"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:89
+msgid "I found a better plugin"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:91
+msgid "Which plugin? (optional)"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:94
+msgid "The plugin didn't work as expected"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:96
+msgid "What went wrong? (optional)"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:99
+msgid "It broke my site or conflicts with another plugin"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:101
+msgid "Which plugin or theme conflicts, or what broke? (optional)"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:104
+msgid "It's missing a feature I need"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:106
+msgid "Which feature do you need? (optional)"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:109
+msgid "It's too complicated to use"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:111
+msgid "What was confusing? (optional)"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:114
+msgid "It's a temporary deactivation, I'm just debugging"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:119
+msgid "Other"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:121
+msgid "Please tell us more (optional)"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:273
+msgid "Deactivating..."
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:274
+#: includes/class-tbswebpressor-deactivation-feedback.php:351
+msgid "Submit & Deactivate"
+msgstr ""
+
+#. translators: %s: plugin name
+#: includes/class-tbswebpressor-deactivation-feedback.php:291
+msgid "Quick feedback - why are you deactivating %s?"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:302
+msgid "Your answer helps us improve. It takes 5 seconds."
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:304
+msgid "Close and keep the plugin active"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:312
+msgid "Reason for deactivating"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:325
+msgid "Plugin name"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:327
+msgid "Type your answer here…"
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:340
+msgid "Share my site URL and admin email so you can contact me about this issue."
+msgstr ""
+
+#: includes/class-tbswebpressor-deactivation-feedback.php:346
+msgid "Skip & Deactivate"
 msgstr ""
 
 #. translators: %s: number of bytes.
