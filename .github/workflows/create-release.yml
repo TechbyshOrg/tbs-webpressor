@@ -33,6 +33,7 @@ jobs:
         run: |
           mkdir webpressor-webp-image-converter-optimizer
           rsync -av ./ webpressor-webp-image-converter-optimizer/ \
+            --exclude-from='.distignore' \
             --exclude='webpressor-webp-image-converter-optimizer' \
             --exclude='react-admin' \
             --exclude='.git' \

@@ -23,6 +23,7 @@ package-lock.json
 .git/
 .gitignore
 .github/
+.distignore
 
 # =============================================
 # Editor & IDE Config

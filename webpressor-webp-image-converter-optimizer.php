@@ -7,7 +7,7 @@
  * Author URI: https://techbysh.com
  * Text Domain: webpressor-webp-image-converter-optimizer
  * Domain Path: /languages
- * License: GPL2
+ * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Requires at least: 6.0
  * Requires PHP: 7.4
