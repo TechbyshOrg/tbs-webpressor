@@ -50,6 +50,24 @@ class TBS_WebPressor_WIC {
     protected $ajax;
 
     /**
+     * Media Library integration.
+     *
+     * @since    2.2.0
+     * @access   protected
+     * @var      TBS_WebPressor_Media    $media    Handles Media Library status and actions.
+     */
+    protected $media;
+
+    /**
+     * Background processing.
+     *
+     * @since    2.2.0
+     * @access   protected
+     * @var      TBS_WebPressor_Background    $background    Handles WP-Cron bulk optimization.
+     */
+    protected $background;
+
+    /**
      * Initialize the class and set its properties.
      *
      * @since    1.0.0
@@ -80,6 +98,8 @@ class TBS_WebPressor_WIC {
         $this->admin = new TBS_WebPressor_Admin($this->converter);
         $this->public = new TBS_WebPressor_Public($this->converter);
         $this->ajax = new TBS_WebPressor_Ajax($this->converter);
+        $this->media = new TBS_WebPressor_Media();
+        $this->background = new TBS_WebPressor_Background();
     }
 
     /**
@@ -91,5 +111,7 @@ class TBS_WebPressor_WIC {
         $this->admin->tbswebpressor_admin_setup_hooks();
         $this->public->tbswebpressor_public_setup_hooks();
         $this->ajax->tbswebpressor_ajax_setup_hooks();
+        $this->media->tbswebpressor_media_setup_hooks();
+        $this->background->tbswebpressor_background_setup_hooks();
     }
 }

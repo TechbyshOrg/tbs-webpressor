@@ -1,5 +1,6 @@
 const path = require('path');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 // WordPress site URL - change this to your local WordPress URL
 const WORDPRESS_SITE_URL = 'http://localhost/your-wordpress-site';
@@ -9,7 +10,7 @@ module.exports = {
   output: {
     filename: 'backend.js',
     path: path.resolve(__dirname, '../assets/js'), // Adjust this path if needed
-    clean: true, // Clean the output directory before emit
+    clean: { keep: /media\.js$/ }, // Clean the output directory before emit (media.js is a hand-written, unbundled script)
   },
   module: {
     rules: [
@@ -21,7 +22,8 @@ module.exports = {
           options: {
             presets: [
               ['@babel/preset-env', { targets: "defaults" }],
-              ['@babel/preset-react', { runtime: 'automatic' }]
+              // Classic runtime: WordPress only provides react-jsx-runtime from 6.6, React itself is always available.
+              ['@babel/preset-react', { runtime: 'classic' }]
             ],
             plugins: [
               // Add any Babel plugins you need here
@@ -43,6 +45,27 @@ module.exports = {
         },
       },
     ],
+  },
+  // Keep "translators:" comments so WP-CLI make-pot can pass them to translators.
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+        terserOptions: {
+          format: {
+            comments: /translators:|@license|@preserve|^!/i,
+          },
+        },
+      }),
+    ],
+  },
+  // WordPress provides these packages at runtime (script handles: react, react-dom, wp-element, wp-i18n),
+  // so they are not bundled a second time.
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    '@wordpress/element': ['wp', 'element'],
+    '@wordpress/i18n': ['wp', 'i18n'],
   },
   resolve: {
     extensions: ['.js', '.jsx'],

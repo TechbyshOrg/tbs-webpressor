@@ -1,0 +1,60 @@
+/* WebPressor Media Library status */
+.tbswebpressor-media-status {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.tbswebpressor-media-formats {
+    margin: 0 0 4px;
+    padding: 0;
+    list-style: none;
+}
+
+.tbswebpressor-media-formats li {
+    margin: 0 0 2px;
+}
+
+.tbswebpressor-media-state-converted {
+    color: #047857;
+}
+
+.tbswebpressor-media-state-failed,
+.tbswebpressor-media-error,
+.tbswebpressor-media-feedback.is-error {
+    color: #b91c1c;
+}
+
+.tbswebpressor-media-state-larger,
+.tbswebpressor-media-state-excluded,
+.tbswebpressor-media-state-pending,
+.tbswebpressor-media-muted {
+    color: #50575e;
+}
+
+.tbswebpressor-media-saving,
+.tbswebpressor-media-error {
+    margin: 0 0 6px;
+}
+
+.tbswebpressor-media-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.tbswebpressor-media-feedback {
+    display: block;
+    margin-top: 4px;
+}
+
+.tbswebpressor-media-feedback:empty {
+    display: none;
+}
+
+.fixed .column-tbswebpressor {
+    width: 15%;
+}
+
+.compat-field-tbswebpressor .tbswebpressor-media-status {
+    padding-top: 6px;
+}

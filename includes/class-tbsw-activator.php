@@ -17,6 +17,10 @@ class TBS_WebPressor_Activator {
         add_option('tbswebpressor_delivery_method', 'html');
         add_option('tbswebpressor_compression_mode', 'lossy');
         add_option('tbswebpressor_convert_on_upload', 1);
+        add_option('tbswebpressor_skip_larger', 1);
+        add_option('tbswebpressor_html_scope', 'content');
+        add_option('tbswebpressor_exclude_paths', array());
+        add_option('tbswebpressor_max_image_dimension', 0);
 
         // Track stats
         add_option('tbswebpressor_total_original_size', 0);

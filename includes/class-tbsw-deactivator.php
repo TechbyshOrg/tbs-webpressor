@@ -9,6 +9,11 @@ class TBS_WebPressor_Deactivator {
      */
     public static function tbswebpressor_deactivate() {
         update_option('tbswebpressor_delivery_method', 'html');
+        if (class_exists('TBS_WebPressor_Background')) {
+            TBS_WebPressor_Background::tbswebpressor_stop();
+        } else {
+            wp_clear_scheduled_hook('tbswebpressor_background_process');
+        }
         if (class_exists('TBS_WebPressor_Converter')) {
             TBS_WebPressor_Converter::tbswebpressor_update_htaccess();
             TBS_WebPressor_Converter::tbswebpressor_release_bulk_lock();

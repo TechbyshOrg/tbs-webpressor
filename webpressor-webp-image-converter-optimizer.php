@@ -34,8 +34,16 @@ require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbs-webpressor-converter
 require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbs-webpressor-admin.php';
 require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbs-webpressor-public.php';
 require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbs-webpressor-ajax.php';
+require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbs-webpressor-media.php';
+require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbs-webpressor-background.php';
+require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbs-webpressor-diagnostics.php';
 require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbsw-activator.php';
 require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbsw-deactivator.php';
+
+if (defined('WP_CLI') && WP_CLI) {
+    require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbs-webpressor-cli.php';
+    WP_CLI::add_command('webpressor', 'TBS_WebPressor_CLI');
+}
 
 /**
  * Begins execution of the plugin.

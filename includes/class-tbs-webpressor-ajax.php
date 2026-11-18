@@ -44,6 +44,11 @@ class TBS_WebPressor_Ajax {
         add_action('wp_ajax_tbswebpressor_reset_conversion', array($this, 'tbswebpressor_reset_conversion'));
         add_action('wp_ajax_tbswebpressor_save_settings', array($this, 'tbswebpressor_save_settings'));
         add_action('wp_ajax_tbswebpressor_get_stats', array($this, 'tbswebpressor_get_stats'));
+        add_action('wp_ajax_tbswebpressor_retry_failed', array($this, 'tbswebpressor_retry_failed'));
+        add_action('wp_ajax_tbswebpressor_get_failed_items', array($this, 'tbswebpressor_get_failed_items'));
+        add_action('wp_ajax_tbswebpressor_media_action', array($this, 'tbswebpressor_media_action'));
+        add_action('wp_ajax_tbswebpressor_background', array($this, 'tbswebpressor_background'));
+        add_action('wp_ajax_tbswebpressor_test_delivery', array($this, 'tbswebpressor_test_delivery'));
     }
 
     /**
@@ -53,12 +58,12 @@ class TBS_WebPressor_Ajax {
      */
     private function tbswebpressor_verify_nonce() {
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(array('message' => 'Insufficient permissions'));
+            wp_send_json_error(array('message' => __('Insufficient permissions', 'webpressor-webp-image-converter-optimizer')));
             exit;
         }
 
         if (!isset($_REQUEST['nonce']) || !check_ajax_referer('tbswebpressor-nonce', 'nonce', false)) {
-            wp_send_json_error(array('message' => 'Security check failed'));
+            wp_send_json_error(array('message' => __('Security check failed', 'webpressor-webp-image-converter-optimizer')));
             exit;
         }
     }
@@ -72,9 +77,14 @@ class TBS_WebPressor_Ajax {
         $user_id = get_current_user_id();
         $lock = get_transient(TBS_WebPressor_Converter::BULK_LOCK_KEY);
 
+        if ($lock === TBS_WebPressor_Background::LOCK_OWNER) {
+            wp_send_json_error(array('message' => __('Background optimization is running. Stop it first to optimize in this window.', 'webpressor-webp-image-converter-optimizer')));
+            exit;
+        }
+
         if ((int) $page <= 1) {
             if ($lock && (int) $lock !== $user_id) {
-                wp_send_json_error(array('message' => 'Bulk optimization is already running in another session.'));
+                wp_send_json_error(array('message' => __('Bulk optimization is already running in another session.', 'webpressor-webp-image-converter-optimizer')));
                 exit;
             }
             set_transient(TBS_WebPressor_Converter::BULK_LOCK_KEY, $user_id, 15 * MINUTE_IN_SECONDS);
@@ -82,7 +92,7 @@ class TBS_WebPressor_Ajax {
         }
 
         if (!$lock || (int) $lock !== $user_id) {
-            wp_send_json_error(array('message' => 'Bulk optimization session expired. Please start again.'));
+            wp_send_json_error(array('message' => __('Bulk optimization session expired. Please start again.', 'webpressor-webp-image-converter-optimizer')));
             exit;
         }
 
@@ -108,7 +118,7 @@ class TBS_WebPressor_Ajax {
         TBS_WebPressor_Converter::tbswebpressor_clear_count_cache();
 
         wp_send_json_success(array(
-            'message'      => 'Conversion started!',
+            'message'      => __('Conversion started!', 'webpressor-webp-image-converter-optimizer'),
             'hasMorePages' => $hasMorePages,
             'processed'    => $processed,
         ));
@@ -116,6 +126,8 @@ class TBS_WebPressor_Ajax {
 
     /**
      * Get total media count
+     *
+     * The response also carries pending, failed, skipped and excluded counts.
      *
      * @since    1.0.0
      */
@@ -125,7 +137,13 @@ class TBS_WebPressor_Ajax {
         $force = !empty($_REQUEST['refresh']);
         $counts = TBS_WebPressor_Converter::tbswebpressor_get_media_counts($force);
 
-        wp_send_json_success(array('count' => $counts['total']));
+        wp_send_json_success(array(
+            'count'    => $counts['total'],
+            'pending'  => $counts['pending'],
+            'failed'   => $counts['failed'],
+            'skipped'  => $counts['skipped'],
+            'excluded' => $counts['excluded'],
+        ));
     }
 
     /**
@@ -150,75 +168,10 @@ class TBS_WebPressor_Ajax {
     public function tbswebpressor_reset_conversion() {
         $this->tbswebpressor_verify_nonce();
 
-        TBS_WebPressor_Converter::tbswebpressor_release_bulk_lock();
+        TBS_WebPressor_Background::tbswebpressor_stop();
+        TBS_WebPressor_Converter::tbswebpressor_reset_all();
 
-        $args = array_merge(
-            TBS_WebPressor_Converter::tbswebpressor_get_convertible_attachment_query_args(),
-            array(
-                'posts_per_page' => -1,
-            )
-        );
-
-        $attachments = new WP_Query($args);
-
-        if (!empty($attachments->posts)) {
-            foreach ($attachments->posts as $attachment_id) {
-                $attachment_id = (int) $attachment_id;
-
-                $file = get_attached_file($attachment_id);
-                if (!$file || !file_exists($file)) {
-                    continue;
-                }
-
-                $ext = pathinfo($file, PATHINFO_EXTENSION);
-
-                $webp_main = preg_replace('/\.' . preg_quote($ext, '/') . '$/', '.webp', $file);
-                if (file_exists($webp_main)) {
-                    wp_delete_file($webp_main);
-                }
-
-                $avif_main = preg_replace('/\.' . preg_quote($ext, '/') . '$/', '.avif', $file);
-                if (file_exists($avif_main)) {
-                    wp_delete_file($avif_main);
-                }
-
-                $metadata = wp_get_attachment_metadata($attachment_id);
-                $upload_dir = wp_upload_dir();
-                $base_dir   = trailingslashit($upload_dir['basedir']);
-                $subdir     = isset($metadata['file']) ? dirname($metadata['file']) . '/' : '';
-
-                if (!empty($metadata['sizes'])) {
-                    foreach ($metadata['sizes'] as $size) {
-                        if (!empty($size['file'])) {
-                            $thumb_file = $base_dir . $subdir . $size['file'];
-                            $ext_thumb  = pathinfo($thumb_file, PATHINFO_EXTENSION);
-
-                            $webp_thumb = preg_replace('/\.' . preg_quote($ext_thumb, '/') . '$/', '.webp', $thumb_file);
-                            if (file_exists($webp_thumb)) {
-                                wp_delete_file($webp_thumb);
-                            }
-
-                            $avif_thumb = preg_replace('/\.' . preg_quote($ext_thumb, '/') . '$/', '.avif', $thumb_file);
-                            if (file_exists($avif_thumb)) {
-                                wp_delete_file($avif_thumb);
-                            }
-                        }
-                    }
-                }
-
-                delete_post_meta($attachment_id, 'tbswebpressor_webp_path');
-                delete_post_meta($attachment_id, 'tbswebpressor_avif_path');
-                delete_post_meta($attachment_id, 'tbswebpressor_original_size');
-                delete_post_meta($attachment_id, 'tbswebpressor_optimized_size');
-            }
-
-        }
-
-        update_option('tbswebpressor_total_original_size', 0);
-        update_option('tbswebpressor_total_optimized_size', 0);
-        TBS_WebPressor_Converter::tbswebpressor_clear_count_cache();
-
-        wp_send_json_success(array('message' => 'Conversion reset successfully!'));
+        wp_send_json_success(array('message' => __('Conversion reset successfully!', 'webpressor-webp-image-converter-optimizer')));
     }
 
     /**
@@ -227,19 +180,58 @@ class TBS_WebPressor_Ajax {
     public function tbswebpressor_save_settings() {
         $this->tbswebpressor_verify_nonce();
 
-        $target_formats = isset($_REQUEST['target_formats']) ? array_map('sanitize_key', (array) $_REQUEST['target_formats']) : array('webp');
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended -- verified in tbswebpressor_verify_nonce().
+        $target_formats = isset($_REQUEST['target_formats']) ? TBS_WebPressor_Converter::tbswebpressor_sanitize_target_formats(wp_unslash((array) $_REQUEST['target_formats'])) : array('webp');
         $webp_quality = isset($_REQUEST['webp_quality']) ? intval($_REQUEST['webp_quality']) : 80;
         $avif_quality = isset($_REQUEST['avif_quality']) ? intval($_REQUEST['avif_quality']) : 65;
         $delivery_method = isset($_REQUEST['delivery_method']) ? sanitize_key($_REQUEST['delivery_method']) : 'html';
         $compression_mode = isset($_REQUEST['compression_mode']) ? sanitize_key($_REQUEST['compression_mode']) : 'lossy';
         $convert_on_upload = isset($_REQUEST['convert_on_upload']) ? intval($_REQUEST['convert_on_upload']) : 0;
 
+        $old_skip_larger   = intval(get_option('tbswebpressor_skip_larger', 1));
+        $old_exclude_paths = TBS_WebPressor_Converter::tbswebpressor_get_exclude_paths();
+
+        $skip_larger = isset($_REQUEST['skip_larger']) ? (intval($_REQUEST['skip_larger']) ? 1 : 0) : $old_skip_larger;
+        $html_scope = isset($_REQUEST['html_scope']) ? sanitize_key($_REQUEST['html_scope']) : get_option('tbswebpressor_html_scope', 'content');
+        $exclude_paths = isset($_REQUEST['exclude_paths'])
+            ? TBS_WebPressor_Converter::tbswebpressor_sanitize_exclude_paths(sanitize_textarea_field(wp_unslash($_REQUEST['exclude_paths'])))
+            : $old_exclude_paths;
+        $max_dimension = isset($_REQUEST['max_image_dimension']) ? absint($_REQUEST['max_image_dimension']) : intval(get_option('tbswebpressor_max_image_dimension', 0));
+        // phpcs:enable
+
+        if (!in_array($delivery_method, array('html', 'picture', 'rewrite'), true)) {
+            $delivery_method = 'html';
+        }
+        if (!in_array($compression_mode, array('lossy', 'lossless'), true)) {
+            $compression_mode = 'lossy';
+        }
+        if (!in_array($html_scope, array('content', 'full'), true)) {
+            $html_scope = 'content';
+        }
+        if ($max_dimension > 0) {
+            $max_dimension = max(640, min(10000, $max_dimension));
+        }
+
         update_option('tbswebpressor_target_formats', $target_formats);
         update_option('tbswebpressor_webp_quality', max(0, min(100, $webp_quality)));
         update_option('tbswebpressor_avif_quality', max(0, min(100, $avif_quality)));
         update_option('tbswebpressor_delivery_method', $delivery_method);
         update_option('tbswebpressor_compression_mode', $compression_mode);
-        update_option('tbswebpressor_convert_on_upload', $convert_on_upload);
+        update_option('tbswebpressor_convert_on_upload', $convert_on_upload ? 1 : 0);
+        update_option('tbswebpressor_skip_larger', $skip_larger);
+        update_option('tbswebpressor_html_scope', $html_scope);
+        update_option('tbswebpressor_exclude_paths', $exclude_paths);
+        update_option('tbswebpressor_max_image_dimension', $max_dimension);
+
+        // Images skipped as "larger" become pending again when that safeguard is turned off.
+        if ($old_skip_larger && !$skip_larger) {
+            TBS_WebPressor_Converter::tbswebpressor_clear_status_everywhere(TBS_WebPressor_Converter::STATUS_LARGER);
+        }
+
+        // Exclusion rules changed: re-evaluate previously excluded images on the next run.
+        if ($exclude_paths !== $old_exclude_paths) {
+            TBS_WebPressor_Converter::tbswebpressor_clear_status_everywhere(TBS_WebPressor_Converter::STATUS_EXCLUDED);
+        }
 
         TBS_WebPressor_Converter::tbswebpressor_clear_count_cache();
 
@@ -247,7 +239,14 @@ class TBS_WebPressor_Ajax {
             TBS_WebPressor_Converter::tbswebpressor_update_htaccess();
         }
 
-        wp_send_json_success(array('message' => 'Settings saved successfully!'));
+        wp_send_json_success(array(
+            'message'  => __('Settings saved successfully!', 'webpressor-webp-image-converter-optimizer'),
+            'settings' => array(
+                'target_formats'      => $target_formats,
+                'exclude_paths'       => implode("\n", $exclude_paths),
+                'max_image_dimension' => $max_dimension,
+            ),
+        ));
     }
 
     /**
@@ -263,5 +262,91 @@ class TBS_WebPressor_Ajax {
             'total_original'  => $total_orig,
             'total_optimized' => $total_opt,
         ));
+    }
+
+    /**
+     * Put failed images back into the pending queue.
+     *
+     * @since 2.2.0
+     */
+    public function tbswebpressor_retry_failed() {
+        $this->tbswebpressor_verify_nonce();
+
+        TBS_WebPressor_Converter::tbswebpressor_clear_status_everywhere(TBS_WebPressor_Converter::STATUS_FAILED);
+
+        wp_send_json_success(array('message' => __('Failed images were queued for another attempt.', 'webpressor-webp-image-converter-optimizer')));
+    }
+
+    /**
+     * List failed images with their error messages.
+     *
+     * @since 2.2.0
+     */
+    public function tbswebpressor_get_failed_items() {
+        $this->tbswebpressor_verify_nonce();
+
+        wp_send_json_success(array('items' => TBS_WebPressor_Converter::tbswebpressor_get_failed_items(20)));
+    }
+
+    /**
+     * Run a per-image action from the Media Library.
+     *
+     * @since 2.2.0
+     */
+    public function tbswebpressor_media_action() {
+        $this->tbswebpressor_verify_nonce();
+
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended -- verified in tbswebpressor_verify_nonce().
+        $attachment_id = isset($_REQUEST['attachment_id']) ? absint($_REQUEST['attachment_id']) : 0;
+        $operation     = isset($_REQUEST['operation']) ? sanitize_key($_REQUEST['operation']) : '';
+        // phpcs:enable
+
+        if (!$attachment_id || get_post_type($attachment_id) !== 'attachment') {
+            wp_send_json_error(array('message' => __('Image not found.', 'webpressor-webp-image-converter-optimizer')));
+        }
+
+        $result = TBS_WebPressor_Media::tbswebpressor_run_action($attachment_id, $operation);
+        if (is_wp_error($result)) {
+            wp_send_json_error(array('message' => $result->get_error_message()));
+        }
+
+        wp_send_json_success(array(
+            'message' => $result,
+            'html'    => TBS_WebPressor_Media::tbswebpressor_render_status($attachment_id),
+        ));
+    }
+
+    /**
+     * Start, stop or read the background optimization.
+     *
+     * @since 2.2.0
+     */
+    public function tbswebpressor_background() {
+        $this->tbswebpressor_verify_nonce();
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- verified in tbswebpressor_verify_nonce().
+        $operation = isset($_REQUEST['operation']) ? sanitize_key($_REQUEST['operation']) : 'status';
+
+        if ($operation === 'start') {
+            $started = TBS_WebPressor_Background::tbswebpressor_start();
+            if (is_wp_error($started)) {
+                wp_send_json_error(array('message' => $started->get_error_message()));
+            }
+        } elseif ($operation === 'stop') {
+            TBS_WebPressor_Background::tbswebpressor_stop();
+        }
+
+        wp_send_json_success(array('state' => TBS_WebPressor_Background::tbswebpressor_get_state()));
+    }
+
+    /**
+     * Run the delivery self-test.
+     *
+     * @since 2.2.0
+     */
+    public function tbswebpressor_test_delivery() {
+        $this->tbswebpressor_verify_nonce();
+
+        wp_send_json_success(TBS_WebPressor_Diagnostics::tbswebpressor_run_delivery_test());
     }
 }

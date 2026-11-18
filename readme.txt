@@ -41,7 +41,17 @@ Google's Core Web Vitals (LCP, FID, CLS) are directly impacted by image delivery
 🔹 **Bulk Optimizer** — Process your entire Media Library in batches with a real-time live console log
 🔹 **Auto-Convert on Upload** — Instantly convert new images as they are added to the Media Library
 🔹 **Smart Browser Detection** — Serve AVIF to AVIF-capable browsers, WebP to WebP browsers, and original images to legacy browsers
-🔹 **Two Delivery Methods** — Choose between HTML URL replacement or server-level `.htaccess` rewrite rules
+🔹 **Three Delivery Methods** — HTML URL replacement, cache-safe `<picture>` elements, or server-level `.htaccess` rewrite rules
+🔹 **Whole-Page Processing** — Optionally replace images anywhere on the page: theme headers, page builders and inline background images
+🔹 **Reliable Bulk Optimizer** — Images that cannot be converted are listed with the reason and skipped, so a run always finishes; retry them with one click
+🔹 **Background Processing** — Optimize the whole library on the server with WP-Cron and close the browser tab
+🔹 **Never Larger** — Keeps the original when a WebP/AVIF file would be bigger than the source
+🔹 **Media Library Column** — See the status and savings of every image and optimize, remove or exclude single images
+🔹 **Exclusions** — Skip folders (e.g. `logos/`) or individual images
+🔹 **Maximum Upload Size** — Scale down oversized uploads before conversion (uses WordPress' built-in big-image handling)
+🔹 **Delivery Self-Test** — Checks that your server really delivers WebP/AVIF with the chosen method
+🔹 **WP-CLI Commands** — `wp webpressor status`, `wp webpressor convert` and `wp webpressor reset`
+🔹 **Automatic Cleanup** — Deleting an image also deletes its WebP/AVIF files; edited images are re-converted
 🔹 **Adjustable Quality Sliders** — Independent WebP quality (0–100) and AVIF quality (0–100) controls
 🔹 **Lossy & Lossless Modes** — Select compression mode for each format
 🔹 **Storage Savings Dashboard** — See exactly how many megabytes and what percentage you have saved
@@ -154,7 +164,9 @@ Positively! Faster page loads from smaller images directly improve your Core Web
 
 = What is the difference between HTML Alteration and Server Rewrite Rules? =
 
-**HTML Alteration** modifies image URLs inside page HTML content on-the-fly using PHP. It works everywhere but only affects images in page content and widget text.
+**HTML Alteration** modifies image URLs inside page HTML content on-the-fly using PHP, based on what the visitor's browser supports. It works everywhere but, by default, only affects images in page content and widget text. Enable "Entire page" in Settings to process the whole page.
+
+**<picture> Elements** wrap each image in a `<picture>` tag that lists the AVIF and WebP versions, so every browser picks the best format itself. Because the page HTML is the same for every visitor, it is the safest choice when a page cache or CDN is used.
 
 **Server Rewrite Rules** add Apache/LiteSpeed `.htaccess` directives that intercept image requests at the server level before PHP even runs. This method also handles background CSS images, JavaScript-loaded images, and slider images — making it more thorough and slightly faster.
 
@@ -180,11 +192,31 @@ Yes. The Settings tab provides independent quality sliders for WebP (recommended
 
 = Can I undo the conversions and restore my original images? =
 
-Yes. Click the **Reset Conversions** button on the Dashboard. This will delete all generated `.webp` and `.avif` files and reset the statistics, leaving your original images completely intact.
+Yes. Click the **Reset Conversions** button on the Dashboard. This will delete all generated `.webp` and `.avif` files and reset the statistics, leaving your original images completely intact. To undo a single image, use **Remove WebP/AVIF** in the WebPressor column of the Media Library (list view).
 
 = Will the plugin slow down my WordPress admin? =
 
-No. Bulk conversion uses AJAX-based batch processing that runs in the background without blocking your admin interface. You can continue using WordPress normally while the optimizer runs.
+No. Bulk conversion uses AJAX-based batch processing that runs in the background without blocking your admin interface. You can continue using WordPress normally while the optimizer runs. Use **Run in Background** to let the server continue even after you close the page.
+
+= Why do some images show "Original kept (smaller)"? =
+
+Some JPEGs are already highly compressed and some PNGs are very simple. Converting them can produce a larger file. WebPressor then keeps only the original, so visitors never download a bigger image. You can turn this safeguard off in Settings.
+
+= What happens when an image cannot be converted? =
+
+The bulk optimizer records the reason (for example a missing or corrupt file, or not enough server memory), skips the image, and continues. The Dashboard lists failed images; fix the cause and click **Retry Failed Images**, or exclude the image from the Media Library.
+
+= How do I exclude images? =
+
+Enter folders or file name parts in **Settings → Excluded Folders and Files** (one per line, e.g. `logos/`), or click **Exclude** in the WebPressor column of the Media Library list view.
+
+= Which WP-CLI commands are available? =
+
+`wp webpressor status` shows the library status, `wp webpressor convert [<id>...] [--limit=<number>] [--retry-failed]` converts pending (or specific) images, and `wp webpressor reset --yes` deletes all generated files.
+
+= Which hooks can developers use? =
+
+Filters: `tbswebpressor_resolve_variant_url`, `tbswebpressor_is_excluded`, `tbswebpressor_active_formats`, `tbswebpressor_batch_size`, `tbswebpressor_skip_image`, `tbswebpressor_picture_html`, `tbswebpressor_enable_output_buffer`, `tbswebpressor_background_time_limit`. Action: `tbswebpressor_attachment_processed`. Add the `tbswebpressor-skip` class to an image to leave it unchanged in `<picture>` mode.
 
 = Is WebPressor compatible with WordPress Multisite? =
 
@@ -196,7 +228,7 @@ WebPressor converts images stored in the local filesystem (`/wp-content/uploads/
 
 = Does WebPressor work with caching plugins? =
 
-Yes. WebPressor is compatible with WP Rocket, W3 Total Cache, WP Super Cache, LiteSpeed Cache, Autoptimize, and other popular caching plugins. After running the bulk optimizer, clear your cache to ensure visitors receive the new optimized images.
+Yes. WebPressor works with WP Rocket, W3 Total Cache, WP Super Cache, LiteSpeed Cache, Autoptimize, and other popular caching plugins. When a page cache is active, choose the **<picture> Elements** delivery method: HTML Alteration picks the format per visitor, so a cached page could otherwise show the wrong format to other browsers. After running the bulk optimizer, clear your cache to ensure visitors receive the new optimized images. The **Delivery Self-Test** on the System Status tab warns you when a page cache is detected.
 
 = What happens if a visitor's browser does not support WebP or AVIF? =
 
@@ -236,6 +268,28 @@ Security, reliability, and delivery improvements. Tested with WordPress 7.1. Rec
 ---
 
 == Changelog ==
+
+= 2.2.0 =
+* FIX: Bulk optimizer no longer runs endlessly when AVIF is selected on a server without AVIF support, or when images are missing or corrupt
+* NEW: Failed images are recorded with the reason, listed on the Dashboard, and can be retried with one click
+* NEW: Keep the original when the WebP/AVIF file would be larger (enabled by default)
+* NEW: Cache-safe `<picture>` delivery method
+* NEW: Optional whole-page processing for theme, page builder and inline background images
+* NEW: WebPressor column in the Media Library with per-image optimize, remove and exclude actions
+* NEW: Folder exclusions
+* NEW: Background bulk optimization via WP-Cron
+* NEW: WP-CLI commands: `wp webpressor status|convert|reset`
+* NEW: Delivery self-test on the System Status tab
+* NEW: Maximum image size for new uploads
+* NEW: WebP/AVIF files are deleted together with their image, and edited images are re-converted
+* IMPROVED: Admin interface is fully translatable and keyboard accessible
+* IMPROVED: Admin screens meet WCAG 2.2 AA color contrast, show visible keyboard focus everywhere, respect reduced-motion settings and work in Windows High Contrast mode
+* IMPROVED: Dashboard, Settings and System Status each have their own menu entry and link; switching tabs keeps the address bar, browser Back button and admin menu in sync
+* IMPROVED: Settings are grouped into sections with a save bar that shows unsaved changes, a Discard button and inline validation
+* IMPROVED: Dashboard explains its current state, shows a getting-started checklist and an empty state for new sites, and keeps "Delete all WebP/AVIF files" apart from everyday actions
+* IMPROVED: Error messages stay visible until dismissed; Media Library "Exclude" asks for confirmation
+* IMPROVED: Admin script is about 75% smaller because it uses the React library that ships with WordPress
+* IMPROVED: Settings are validated against allowed values
 
 = 2.1.0 =
 * IMPROVED: Admin AJAX endpoints require administrator privileges; removed public nopriv handlers

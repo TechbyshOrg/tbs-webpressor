@@ -1,87 +1,1168 @@
-# Copyright (C) 2025 Techbysh
+# Copyright (C) 2026 Techbysh
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
 "Project-Id-Version: WebPressor - WebP Image Converter & Optimizer 2.1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tbs-webpressor\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/webpressor-webp-image-converter-optimizer\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-20T11:45:40+00:00\n"
+"POT-Creation-Date: 2026-11-18T05:35:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: webpressor-webp-image-converter-optimizer\n"
 
 #. Plugin Name of the plugin
-#: tbs-webpressor.php
+#: webpressor-webp-image-converter-optimizer.php
 msgid "WebPressor - WebP Image Converter & Optimizer"
 msgstr ""
 
 #. Description of the plugin
-#: tbs-webpressor.php
-msgid "A WordPress plugin to convert images to WebP format and serve them to compatible browsers."
+#: webpressor-webp-image-converter-optimizer.php
+msgid "A WordPress plugin to convert images to WebP and AVIF formats and serve them to compatible browsers."
 msgstr ""
 
 #. Author of the plugin
-#: tbs-webpressor.php
+#: webpressor-webp-image-converter-optimizer.php
 msgid "Techbysh"
 msgstr ""
 
 #. Author URI of the plugin
-#: tbs-webpressor.php
+#: webpressor-webp-image-converter-optimizer.php
 msgid "https://techbysh.com"
 msgstr ""
 
-#: admin/settings.php:24
-msgid "Settings saved successfully!"
+#: admin/dashboard.php:17
+#: admin/settings.php:17
+#: admin/status.php:17
+msgid "WebPressor needs JavaScript to show this page. Please enable JavaScript in your browser."
 msgstr ""
 
-#: admin/settings.php:41
-msgid "WebP Quality"
-msgstr ""
-
-#: admin/settings.php:48
-msgid "Quality level between 0 (worst quality, smaller file) and 100 (best quality, larger file)."
-msgstr ""
-
-#: admin/settings.php:50
-msgid "Recommended: 75-85 for a good balance between quality and file size."
-msgstr ""
-
-#: admin/settings.php:56
-msgid "Convert on Upload"
-msgstr ""
-
-#: admin/settings.php:62
-msgid "Automatically convert images to WebP when they are uploaded to the media library."
-msgstr ""
-
-#: admin/settings.php:70
-msgid "Save Settings"
-msgstr ""
-
-#: admin/settings.php:75
-msgid "WebP Browser Support"
-msgstr ""
-
-#: admin/settings.php:77
-msgid "WebP is supported by all modern browsers including:"
-msgstr ""
-
-#: admin/settings.php:87
-msgid "For older browsers, the plugin will automatically serve the original JPG/PNG images."
-msgstr ""
-
-#: includes/class-tbs-webpressor.php:120
+#: includes/class-tbs-webpressor-admin.php:138
 msgid "Converting images..."
 msgstr ""
 
-#: includes/class-tbs-webpressor.php:121
+#: includes/class-tbs-webpressor-admin.php:139
+#: assets/js/backend.js:20
 msgid "Conversion completed successfully!"
 msgstr ""
 
-#: includes/class-tbs-webpressor.php:122
+#: includes/class-tbs-webpressor-admin.php:140
 msgid "Error during conversion"
+msgstr ""
+
+#: includes/class-tbs-webpressor-admin.php:154
+#: includes/class-tbs-webpressor-admin.php:155
+#: includes/class-tbs-webpressor-media.php:44
+#: includes/class-tbs-webpressor-media.php:75
+msgid "WebPressor"
+msgstr ""
+
+#: includes/class-tbs-webpressor-admin.php:166
+#: includes/class-tbs-webpressor-admin.php:167
+#: includes/class-tbs-webpressor-admin.php:203
+#: assets/js/backend.js:2
+msgid "Dashboard"
+msgstr ""
+
+#: includes/class-tbs-webpressor-admin.php:176
+#: includes/class-tbs-webpressor-admin.php:177
+#: includes/class-tbs-webpressor-admin.php:204
+#: assets/js/backend.js:2
+msgid "Settings"
+msgstr ""
+
+#: includes/class-tbs-webpressor-admin.php:186
+#: includes/class-tbs-webpressor-admin.php:187
+#: includes/class-tbs-webpressor-admin.php:205
+#: assets/js/backend.js:2
+msgid "System Status"
+msgstr ""
+
+#: includes/class-tbs-webpressor-ajax.php:61
+msgid "Insufficient permissions"
+msgstr ""
+
+#: includes/class-tbs-webpressor-ajax.php:66
+msgid "Security check failed"
+msgstr ""
+
+#: includes/class-tbs-webpressor-ajax.php:81
+msgid "Background optimization is running. Stop it first to optimize in this window."
+msgstr ""
+
+#: includes/class-tbs-webpressor-ajax.php:87
+#: includes/class-tbs-webpressor-background.php:100
+msgid "Bulk optimization is already running in another session."
+msgstr ""
+
+#: includes/class-tbs-webpressor-ajax.php:95
+msgid "Bulk optimization session expired. Please start again."
+msgstr ""
+
+#: includes/class-tbs-webpressor-ajax.php:121
+msgid "Conversion started!"
+msgstr ""
+
+#: includes/class-tbs-webpressor-ajax.php:174
+msgid "Conversion reset successfully!"
+msgstr ""
+
+#: includes/class-tbs-webpressor-ajax.php:243
+#: assets/js/backend.js:23
+msgid "Settings saved successfully!"
+msgstr ""
+
+#: includes/class-tbs-webpressor-ajax.php:277
+msgid "Failed images were queued for another attempt."
+msgstr ""
+
+#: includes/class-tbs-webpressor-ajax.php:305
+msgid "Image not found."
+msgstr ""
+
+#: includes/class-tbs-webpressor-background.php:104
+msgid "There are no images waiting to be optimized."
+msgstr ""
+
+#: includes/class-tbs-webpressor-converter.php:578
+msgid "Only JPEG and PNG images can be converted."
+msgstr ""
+
+#: includes/class-tbs-webpressor-converter.php:584
+msgid "None of the selected output formats can be created on this server."
+msgstr ""
+
+#: includes/class-tbs-webpressor-converter.php:592
+msgid "The original image file could not be found on the server."
+msgstr ""
+
+#: includes/class-tbs-webpressor-converter.php:600
+msgid "Excluded from optimization."
+msgstr ""
+
+#: includes/class-tbs-webpressor-converter.php:608
+msgid "The folder that contains this image is not writable."
+msgstr ""
+
+#: includes/class-tbs-webpressor-converter.php:614
+msgid "A previous conversion attempt did not finish (the server may have run out of memory or time). Retry it or exclude this image."
+msgstr ""
+
+#. translators: %s: image format name, e.g. WebP or AVIF.
+#: includes/class-tbs-webpressor-converter.php:667
+msgid "Could not create the %s file. The image may be corrupt or too large for the available server memory."
+msgstr ""
+
+#: includes/class-tbs-webpressor-converter.php:732
+msgid "Kept the original because the converted file was not smaller."
+msgstr ""
+
+#: includes/class-tbs-webpressor-converter.php:1015
+msgid "Conversion failed."
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:131
+msgid "Converted image available"
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:133
+msgid "No converted image was found. Run the Bulk Optimizer first, then repeat this test."
+msgstr ""
+
+#. translators: %s: image format name, e.g. WEBP.
+#: includes/class-tbs-webpressor-diagnostics.php:146
+msgid "%s file is served correctly"
+msgstr ""
+
+#. translators: %s: error message.
+#: includes/class-tbs-webpressor-diagnostics.php:152
+msgid "Your site could not connect to itself to run this test (%s). Your host may block loopback requests; delivery can still work for visitors."
+msgstr ""
+
+#. translators: %d: HTTP status code.
+#: includes/class-tbs-webpressor-diagnostics.php:161
+msgid "The file returned HTTP status %d. Check that the uploads folder is publicly accessible."
+msgstr ""
+
+#. translators: 1: content type returned by the server, 2: expected content type.
+#: includes/class-tbs-webpressor-diagnostics.php:167
+msgid "The server sends this file as \"%1$s\" instead of \"%2$s\". Some browsers may refuse to display it. Ask your host to add the correct MIME type."
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:168
+msgid "unknown"
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:172
+msgid "The file loads with the correct content type."
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:179
+msgid "Server rewrite rules"
+msgstr ""
+
+#. translators: %s: content type.
+#: includes/class-tbs-webpressor-diagnostics.php:187
+msgid "Requests for the JPEG/PNG URL receive %s."
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:192
+#: includes/class-tbs-webpressor-diagnostics.php:197
+msgid "Vary: Accept header"
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:194
+msgid "The response has no \"Vary: Accept\" header. A CDN or proxy cache may serve WebP/AVIF to browsers that cannot display it. Enable mod_headers or switch to <picture> delivery."
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:197
+msgid "Caches are told that the response depends on browser support."
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:202
+msgid "Nginx ignores .htaccess files. Add the Nginx rules shown on the Settings tab, or switch to <picture> delivery."
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:203
+msgid "The rewrite rules are not active. Check that mod_rewrite is enabled and that .htaccess files are allowed, or switch to <picture> delivery."
+msgstr ""
+
+#. translators: 1: content type returned, 2: hint.
+#: includes/class-tbs-webpressor-diagnostics.php:206
+msgid "The original image was returned as \"%1$s\". %2$s"
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:213
+msgid "<picture> delivery"
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:215
+msgid "Browsers choose the best format themselves, so page caches and CDNs always serve a working image."
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:220
+msgid "HTML alteration and page caching"
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:223
+msgid "A page cache is active. HTML alteration picks the format per visitor, so a cached page can show the wrong format to other browsers. Switch to <picture> delivery for cache-safe results."
+msgstr ""
+
+#: includes/class-tbs-webpressor-diagnostics.php:224
+msgid "No page cache was detected. Image URLs are rewritten per visitor based on browser support."
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:133
+msgid "Working…"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:134
+#: assets/js/backend.js:1
+#: assets/js/backend.js:23
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:135
+msgid "Delete the WebP/AVIF versions of this image? The original image is not affected."
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:136
+msgid "Exclude this image from optimization? Its WebP/AVIF versions will be deleted, and it will not be converted again until you include it. The original image is not affected."
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:201
+msgid "Not a JPEG or PNG image"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:205
+msgid "Optimized"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:206
+msgid "Not optimized yet"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:207
+msgid "Original kept (smaller)"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:208
+msgid "Failed"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:209
+msgid "Excluded"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:215
+msgid "No output format is available on this server."
+msgstr ""
+
+#. translators: 1: saved size, e.g. 120 KB. 2: percentage saved.
+#: includes/class-tbs-webpressor-media.php:230
+msgid "Saved %1$s (%2$d%%)"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:239
+msgid "Include in optimization"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:244
+msgid "Re-optimize"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:245
+msgid "Optimize now"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:248
+msgid "Remove WebP/AVIF"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:250
+msgid "Exclude"
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:274
+msgid "Only JPEG and PNG images can be optimized."
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:280
+msgid "This image is excluded. Include it first."
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:288
+msgid "Image optimized."
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:296
+msgid "WebP/AVIF versions removed."
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:303
+msgid "Image excluded from optimization."
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:311
+msgid "Image included. It will be optimized by the next bulk run."
+msgstr ""
+
+#: includes/class-tbs-webpressor-media.php:314
+msgid "Unknown action."
+msgstr ""
+
+#. translators: %s: number of bytes.
+#: assets/js/backend.js:1
+msgid "%s Bytes"
+msgstr ""
+
+#: assets/js/backend.js:1
+msgid "Bytes"
+msgstr ""
+
+#: assets/js/backend.js:1
+msgid "Network error"
+msgstr ""
+
+#: assets/js/backend.js:1
+msgid "You must select at least one format."
+msgstr ""
+
+#: assets/js/backend.js:1
+msgid "Background optimization finished."
+msgstr ""
+
+#: assets/js/backend.js:1
+msgid "Enter 0 to use the WordPress default, or a whole number from 640 to 10000."
+msgstr ""
+
+#: assets/js/backend.js:1
+msgid "Optimizing in this window. Keep this page open, or pause and choose Run in Background."
+msgstr ""
+
+#: assets/js/backend.js:1
+msgid "All images are processed. New uploads are converted automatically."
+msgstr ""
+
+#: assets/js/backend.js:1
+msgid "All images are processed. Automatic conversion of new uploads is turned off in Settings."
+msgstr ""
+
+#. translators: %s: number of images.
+#: assets/js/backend.js:2
+msgid "%s image is waiting. Start Optimization runs in this window; Run in Background continues on the server after you close this page."
+msgid_plural "%s images are waiting. Start Optimization runs in this window; Run in Background continues on the server after you close this page."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/backend.js:2
+msgid "Upload your first images"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Optimize your existing images"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Add JPEG or PNG images to your Media Library."
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Use Start Optimization below to convert the images already in your library."
+msgstr ""
+
+#: assets/js/backend.js:2
+#: assets/js/backend.js:13
+msgid "Upload Images"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Choose a delivery method"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Pick how WebP and AVIF images reach your visitors. If you use a page cache, choose <picture> Elements."
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Open Settings"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Check that images are delivered"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Run the delivery self-test to confirm your server sends WebP/AVIF to browsers."
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Open System Status"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "HTML Alterations"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "<picture> Elements"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Server Rules (.htaccess)"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Pass"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Warning"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Fail"
+msgstr ""
+
+#: assets/js/backend.js:2
+msgid "Info"
+msgstr ""
+
+#. translators: %s: number of images.
+#: assets/js/backend.js:4
+msgid "%s optimized"
+msgid_plural "%s optimized"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of images.
+#: assets/js/backend.js:6
+msgid "%s kept as original (not smaller)"
+msgid_plural "%s kept as original (not smaller)"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of images.
+#: assets/js/backend.js:8
+msgid "%s excluded"
+msgid_plural "%s excluded"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of images.
+#: assets/js/backend.js:10
+msgid "%s failed"
+msgid_plural "%s failed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/backend.js:10
+msgid "Dismiss notification"
+msgstr ""
+
+#: assets/js/backend.js:10
+msgid "Convert JPEG and PNG images to WebP and AVIF and serve them automatically."
+msgstr ""
+
+#: assets/js/backend.js:10
+msgid "WebPressor sections"
+msgstr ""
+
+#: assets/js/backend.js:10
+msgid "You're all set"
+msgstr ""
+
+#: assets/js/backend.js:10
+msgid "Getting Started"
+msgstr ""
+
+#. translators: 1: completed steps, 2: total steps.
+#: assets/js/backend.js:11
+msgid "%1$s of %2$s steps done"
+msgstr ""
+
+#: assets/js/backend.js:11
+msgid "Getting started checklist hidden."
+msgstr ""
+
+#: assets/js/backend.js:11
+msgid "Hide Checklist"
+msgstr ""
+
+#: assets/js/backend.js:11
+msgid "Completed:"
+msgstr ""
+
+#: assets/js/backend.js:11
+msgid "Not completed:"
+msgstr ""
+
+#: assets/js/backend.js:11
+msgid "Storage Saved"
+msgstr ""
+
+#. translators: 1: percentage saved, e.g. 37%, 2: original size, e.g. 12 MB.
+#: assets/js/backend.js:12
+msgid "%1$s smaller than the originals (%2$s)"
+msgstr ""
+
+#: assets/js/backend.js:12
+msgid "Library Processed"
+msgstr ""
+
+#. translators: 1: processed images, 2: total images, 3: remaining images.
+#: assets/js/backend.js:13
+msgid "Processed %1$s of %2$s images (%3$s remaining)"
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "Counting images…"
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "Active Outputs"
+msgstr ""
+
+#. translators: %s: delivery method name.
+#: assets/js/backend.js:13
+msgid "Method: %s"
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "AVIF is not available on this server"
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "AVIF is selected in Settings, but this server cannot create AVIF files. Only the other selected formats are generated, and AVIF images are not counted as pending."
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "Bulk Optimizer"
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "Create WebP and AVIF versions of the JPEG and PNG images already in your Media Library. Your original images are never changed."
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "Your library status could not be loaded. Check your connection and try again."
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "Try Again"
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "No JPEG or PNG images yet"
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "Upload images to your Media Library. WebPressor converts new uploads automatically."
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "Upload images to your Media Library, then come back here to optimize them."
+msgstr ""
+
+#: assets/js/backend.js:13
+msgid "Overall Library Status"
+msgstr ""
+
+#. translators: 1: processed images, 2: total images.
+#: assets/js/backend.js:13
+msgid "%1$s / %2$s Images"
+msgstr ""
+
+#. translators: 1: converted images, 2: failed images.
+#: assets/js/backend.js:14
+msgid "Background optimization is running — %1$s converted, %2$s failed so far. You can close this page; it continues on the server."
+msgstr ""
+
+#: assets/js/backend.js:14
+msgid "WP-Cron is disabled on this site, so progress depends on your server cron job."
+msgstr ""
+
+#: assets/js/backend.js:14
+msgid "Stopping process after current batch..."
+msgstr ""
+
+#: assets/js/backend.js:14
+msgid "Pause Optimization"
+msgstr ""
+
+#: assets/js/backend.js:14
+msgid "Starting bulk conversion process..."
+msgstr ""
+
+#: assets/js/backend.js:14
+#: assets/js/backend.js:19
+msgid "Conversion process stopped by user."
+msgstr ""
+
+#. translators: %d: batch number.
+#: assets/js/backend.js:15
+msgid "Processing batch #%d..."
+msgstr ""
+
+#. translators: %s: error message.
+#: assets/js/backend.js:17
+msgid "Error: %s"
+msgstr ""
+
+#: assets/js/backend.js:17
+msgid "Unknown error occurred"
+msgstr ""
+
+#. translators: 1: file name, 2: original size, 3: optimized size, 4: percentage saved.
+#: assets/js/backend.js:18
+msgid "✓ %1$s optimized: Original %2$s → Optimized %3$s (-%4$d%%)"
+msgstr ""
+
+#. translators: 1: file name, 2: error message.
+#: assets/js/backend.js:18
+msgid "✗ %1$s failed: %2$s"
+msgstr ""
+
+#. translators: 1: file name, 2: reason.
+#: assets/js/backend.js:18
+msgid "• %1$s: %2$s"
+msgstr ""
+
+#: assets/js/backend.js:18
+msgid "Batch was empty or images already processed."
+msgstr ""
+
+#. translators: 1: processed images, 2: total images.
+#: assets/js/backend.js:19
+msgid "Processed %1$s of %2$s images."
+msgstr ""
+
+#. translators: %s: number of images.
+#: assets/js/backend.js:20
+msgid "Bulk conversion complete. %s image could not be converted — see the list below."
+msgid_plural "Bulk conversion complete. %s images could not be converted — see the list below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/backend.js:20
+msgid "Conversion finished with some failed images."
+msgstr ""
+
+#: assets/js/backend.js:20
+msgid "🎉 All images processed successfully! Bulk conversion complete."
+msgstr ""
+
+#. translators: %s: error message.
+#: assets/js/backend.js:22
+msgid "Fatal Error: %s"
+msgstr ""
+
+#: assets/js/backend.js:22
+msgid "Error during conversion process."
+msgstr ""
+
+#: assets/js/backend.js:22
+msgid "Start Optimization"
+msgstr ""
+
+#: assets/js/backend.js:22
+msgid "Background optimization stopped."
+msgstr ""
+
+#: assets/js/backend.js:22
+msgid "Stop Background Run"
+msgstr ""
+
+#: assets/js/backend.js:22
+msgid "Background optimization started. You can close this page."
+msgstr ""
+
+#: assets/js/backend.js:22
+msgid "Run in Background"
+msgstr ""
+
+#: assets/js/backend.js:22
+msgid "Live Optimization Log"
+msgstr ""
+
+#. translators: %s: number of images.
+#: assets/js/backend.js:23
+msgid "%s image could not be converted"
+msgid_plural "%s images could not be converted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/backend.js:23
+msgid "Retry Failed Images"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Loading details…"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Failed images are skipped by the bulk optimizer so it never gets stuck. Fix the cause (for example a missing or corrupt file), then retry. You can also exclude single images from the Media Library list view."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "To optimize, remove or exclude a single image, use the WebPressor column in the Media Library list view. In grid view, the same controls appear in the image details."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Open Media Library (List View)"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Delete Generated Files"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Available when no optimization is running."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Removes every WebP and AVIF file created by WebPressor. Your original images are not changed, and you can create the files again at any time."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid ""
+"Delete all WebP and AVIF files created by WebPressor?\n"
+"\n"
+"Your original JPEG and PNG images are not changed. You can create the files again at any time with Start Optimization."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Deleting WebP and AVIF files..."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "All WebP and AVIF files were deleted."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "All WebP and AVIF files were deleted. Your original images are unchanged."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "The files could not be deleted. Please try again."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "The files could not be deleted because of a network error. Please try again."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Delete All WebP/AVIF Files"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Compression & Delivery Settings"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Choose which formats WebPressor creates and how they reach your visitors."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Failed to save settings."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Network error while saving settings."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Output Formats and Quality"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Formats to Create"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "When both are selected, browsers that support AVIF get AVIF and all others get WebP."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "WebP Format"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Supported by all modern browsers. Typically 25–35% smaller than JPEG. Your original images are always kept."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "AVIF Format"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Up to 50% smaller than JPEG and about 20% smaller than WebP. Supported by most modern browsers."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Not supported by server GD"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "AVIF stays selected from an earlier configuration but is skipped on this server. Select WebP to keep converting images."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Compression Mode"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Lossy (Highly Recommended)"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Lossless (Forces 100% Quality)"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "WebP Quality"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Lossless mode always uses full quality, so this setting is not used."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Recommended quality: 80 (best size/quality tradeoff)."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "AVIF Quality"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Recommended quality: 65 (comparable to WebP 80 but smaller size)."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Keep the original when the WebP/AVIF file would be larger (recommended)."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Some already-compressed JPEGs and simple PNGs grow when converted. Serving them would slow pages down, so the original is used instead."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Delivery"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Delivery Method"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Choose how WebP and AVIF images reach your visitors' browsers."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "HTML Alteration (Default)"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Swaps image URLs in the page for each visitor, based on what their browser supports. Needs no server setup and works on any hosting."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "<picture> Elements (Cache-Safe)"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Wraps images in <picture> tags that list the AVIF/WebP versions, so each browser picks the best format itself. Works with page caching plugins and CDNs. Recommended when a page cache is active."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Server Rewrite Rules (.htaccess)"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Adds rules to the uploads folder's .htaccess file (Apache and LiteSpeed). Image requests get WebP/AVIF without changing your pages, including CSS background images and sliders."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "A page cache is active on this site. HTML Alteration chooses the format per visitor, so cached pages can show the wrong format to other browsers. <picture> Elements are recommended."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Where to Replace Images"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Post content, widgets and featured images (Default)"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Entire page (theme, page builders, headers and footers)"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "\"Entire page\" processes the final page HTML. Inline background images are not changed in <picture> mode; use server rules for those."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "\"Entire page\" processes the final page HTML, including inline background images."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Automation"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Automatically convert images to WebP/AVIF when uploaded to the Media Library."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Also re-converts images after you crop, rotate or scale them in the WordPress image editor."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Advanced"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Maximum upload size and exclusions"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Maximum Image Size for New Uploads"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Very large uploads are scaled down to this width/height in pixels before conversion. The full-size original is kept by WordPress. Leave 0 to use the WordPress default (2560 px). Allowed range: 640–10000."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Excluded Folders and Files"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "One entry per line. Images whose path inside the uploads folder contains an entry are never converted, for example \"2019/\" or \"logos/\". Existing WebP/AVIF files of newly excluded images are kept until you remove them."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "You have unsaved changes."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "All changes are saved."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Unsaved changes were discarded."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Discard Changes"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Saving Settings..."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Save Changes"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Nginx Server Detected"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Nginx doesn't read .htaccess configuration files. To apply server rewrite rules, you must manually inject the following rules into your Nginx virtual host configuration block:"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Nginx rules copied to the clipboard."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "The rules could not be copied. Select the text and copy it manually."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Copied"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Copy Rules"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Server Compatibility"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Checks the server features WebPressor needs to create WebP and AVIF files."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Requirement Check"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Status"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Detail"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "GD Extension Installed"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Active"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Missing"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Required for standard PHP image processing."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Required for standard PHP image processing. Ask your hosting provider to enable the PHP GD extension."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "WebP Conversion Support"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Available"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Unavailable"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "GD must be compiled with WebP support."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "GD must be compiled with WebP support. Ask your hosting provider for a PHP version with WebP support in GD."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "AVIF Conversion Support"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Requires PHP 8.1+ and GD compiled with AVIF options."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Optional. Requires PHP 8.1 or newer with AVIF support in GD. WebP keeps working without it."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Uploads Directory Writable"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Yes"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "No"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Required to write optimized images and the .htaccess file."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Required to write optimized images and the .htaccess file. Ask your hosting provider to make the wp-content/uploads folder writable."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Detected Server Type"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Unknown"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Used for server rewrite rules implementation."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Delivery Self-Test"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Checks that a converted image is actually delivered by your server with the saved delivery method. The test only requests files from your own site."
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Testing…"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Run Delivery Test"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Check"
+msgstr ""
+
+#: assets/js/backend.js:23
+msgid "Result"
+msgstr ""
+
+#. translators: %s: image URL.
+#: assets/js/backend.js:23
+msgid "Tested image: %s"
 msgstr ""

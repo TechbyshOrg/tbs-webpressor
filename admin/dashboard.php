@@ -11,6 +11,9 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div class="wrap">
-    <div id="tbswebpressor-root" class="tbswebpressor-root" data-tab="dashboard"></div>
+<div class="wrap tbswebpressor-page">
+    <hr class="wp-header-end">
+    <div id="tbswebpressor-root" class="tbswebpressor-root" data-tab="dashboard">
+        <noscript><p><?php esc_html_e('WebPressor needs JavaScript to show this page. Please enable JavaScript in your browser.', 'webpressor-webp-image-converter-optimizer'); ?></p></noscript>
+    </div>
 </div>
