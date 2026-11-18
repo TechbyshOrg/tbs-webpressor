@@ -10,7 +10,7 @@ module.exports = {
   output: {
     filename: 'backend.js',
     path: path.resolve(__dirname, '../assets/js'), // Adjust this path if needed
-    clean: { keep: /media\.js$/ }, // Clean the output directory before emit (media.js is a hand-written, unbundled script)
+    clean: { keep: /(media|deactivation-feedback)\.js$/ }, // Clean the output directory before emit (keeps hand-written, unbundled scripts)
   },
   module: {
     rules: [

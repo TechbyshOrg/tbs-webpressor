@@ -103,6 +103,16 @@ For Apache and LiteSpeed servers, WebPressor writes redirect rules directly into
 
 ---
 
+= External services =
+
+Image conversion happens entirely on your own server; your images are never uploaded anywhere. The only external service is optional:
+
+1. **Google Apps Script** (https://script.google.com) — Optional deactivation feedback, sent to the plugin author (Techbysh) and stored in a Google Sheet. It is sent **only** when an administrator deactivates the plugin and clicks **Submit & Deactivate** in the feedback popup; **Skip & Deactivate** and closing the popup send nothing. It contains the chosen reason, any text typed, the plugin, WordPress, and PHP versions, the site language, whether the site is multisite, and the active theme name. The site URL and admin email are included only if the administrator ticks the opt-in checkbox. Privacy: https://policies.google.com/privacy Terms: https://policies.google.com/terms
+
+The Delivery Self-Test on the System Status tab only requests images from your own site.
+
+---
+
 == Installation ==
 
 Installation of WebPressor can be done in two ways:
@@ -289,6 +299,7 @@ Security, reliability, and delivery improvements. Tested with WordPress 7.1. Rec
 * IMPROVED: Dashboard explains its current state, shows a getting-started checklist and an empty state for new sites, and keeps "Delete all WebP/AVIF files" apart from everyday actions
 * IMPROVED: Error messages stay visible until dismissed; Media Library "Exclude" asks for confirmation
 * IMPROVED: Admin script is about 75% smaller because it uses the React library that ships with WordPress
+* NEW: Optional deactivation feedback survey (nothing is sent unless you click "Submit & Deactivate"; see External services)
 * IMPROVED: Settings are validated against allowed values
 
 = 2.1.0 =

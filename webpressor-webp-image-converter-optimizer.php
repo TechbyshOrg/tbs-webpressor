@@ -25,6 +25,7 @@ define('TBSWEBPRESSOR_VERSION', '2.1.0');
 define('TBSWEBPRESSOR_PLUGIN_DIR', trailingslashit(dirname(__FILE__)));
 define('TBSWEBPRESSOR_PLUGIN_URL', trailingslashit(plugins_url('', __FILE__)));
 define('TBSWEBPRESSOR_PLUGIN_BASENAME', plugin_basename(__FILE__));
+define('TBSWEBPRESSOR_PLUGIN_FILE', __FILE__);
 
 /**
  * Include required files
@@ -39,6 +40,12 @@ require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbs-webpressor-backgroun
 require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbs-webpressor-diagnostics.php';
 require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbsw-activator.php';
 require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbsw-deactivator.php';
+
+// Optional deactivation feedback survey (Plugins screen and its AJAX handler only).
+if (is_admin()) {
+    require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbswebpressor-deactivation-feedback.php';
+    TBSWEBPRESSOR_Deactivation_Feedback::init();
+}
 
 if (defined('WP_CLI') && WP_CLI) {
     require_once TBSWEBPRESSOR_PLUGIN_DIR . 'includes/class-tbs-webpressor-cli.php';
